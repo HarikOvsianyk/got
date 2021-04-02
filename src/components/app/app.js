@@ -3,10 +3,9 @@ import React, {Component} from 'react';
 import {Col, Row, Container} from 'reactstrap';
 import Header from '../header';
 import RandomChar from '../randomChar';
-import ItemList from '../itemList';
-import CharDetails from '../charDetails';
 import ErrorMessage from '../errorMessage';
 import styled from 'styled-components';
+import CharacterPage from '../characterPage';
 
 const Button = styled.button`
     font-size: 1rem;
@@ -22,6 +21,14 @@ export default class App extends Component {
         showRandomChar: true,
         error: false
     }
+
+    componentDidCatch() {
+        console.log('error');
+        this.setState({
+            error: true
+        })
+    }
+
     toggleRandomChar = () => {
         this.setState((state) => {
             return {
@@ -29,6 +36,9 @@ export default class App extends Component {
             }
         });
     }
+
+
+
     render () {
         if (this.state.error) {
             return <ErrorMessage/>
@@ -45,17 +55,10 @@ export default class App extends Component {
                         <Col lg={{size: 5, offset: 0}}>
                         </Col>
                     </Row>
-                    
-                    <Button onClick={this.toggleRandomChar}>Toggle random character</Button>
-                    
-{                    <Row>
-                        <Col md='6'>
-                            <ItemList />
-                        </Col>
-                        <Col md='6'>
-                            <CharDetails />
-                        </Col>
-                    </Row>}
+                    <Button onClick={this.toggleRandomChar}>Toggle random character</Button>                 
+                    <CharacterPage/>
+                    <CharacterPage/>
+                    <CharacterPage/>
                 </Container>
             </>
         );
